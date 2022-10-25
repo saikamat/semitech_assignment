@@ -1,0 +1,36 @@
+---------------------------------------------------------------------------
+WeaviateDocumentStoreError                Traceback (most recent call last)
+Cell In [27], line 4
+      1 from haystack.nodes import EmbeddingRetriever
+      3 retriever = EmbeddingRetriever(document_store=document_store, model_format="sentence_transformers", embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",)
+----> 4 document_store.update_embeddings(retriever)
+
+File ~/git-repos/haystack-weaviate/weave-env/lib/python3.10/site-packages/haystack/document_stores/weaviate.py:1229, in WeaviateDocumentStore.update_embeddings(self, retriever, index, filters, update_existing_embeddings, batch_size)
+   1223     raise RuntimeError(
+   1224         "All the documents in Weaviate store have an embedding by default. Only update is allowed!"
+   1225     )
+   1227 result = self._get_all_documents_in_index(index=index, filters=filters, batch_size=batch_size)
+-> 1229 for result_batch in get_batches_from_generator(result, batch_size):
+   1230     document_batch = [
+   1231         self._convert_weaviate_result_to_document(hit, return_embedding=False) for hit in result_batch
+   1232     ]
+   1233     embeddings = retriever.embed_documents(document_batch)  # type: ignore
+
+File ~/git-repos/haystack-weaviate/weave-env/lib/python3.10/site-packages/haystack/document_stores/base.py:911, in get_batches_from_generator(iterable, n)
+    907 """
+    908 Batch elements of an iterable into fixed-length chunks or blocks.
+    909 """
+    910 it = iter(iterable)
+--> 911 x = tuple(islice(it, n))
+    912 while x:
+    913     yield x
+
+File ~/git-repos/haystack-weaviate/weave-env/lib/python3.10/site-packages/haystack/document_stores/weaviate.py:751, in WeaviateDocumentStore._get_all_documents_in_index(self, index, filters, batch_size, only_documents_without_embedding)
+    748     raise WeaviateDocumentStoreError(f"Weaviate raised an exception: {e}")
+    750 if "errors" in result:
+--> 751     raise WeaviateDocumentStoreError(f"Query results contain errors: {result['errors']}")
+    753 # If `query.do` didn't raise and `result` doesn't contain errors,
+    754 # we are good accessing data
+    755 docs = result.get("data").get("Get").get(index)
+
+WeaviateDocumentStoreError: Query results contain errors: [{'locations': [{'column': 6, 'line': 1}], 'message': 'explorer: list class: search: invalid pagination params: query maximum results exceeded', 'path': ['Get', 'Document']}]

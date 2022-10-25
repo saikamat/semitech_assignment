@@ -1,0 +1,40 @@
+Errors when running txtai from scratch when running example.py
+
+(venv_2) sai.s.kamat@weaviate-gcp:~$ /home/sai.s.kamat/venv_2/bin/python /home/sai.s.kamat/semi-tech-assignment/txtai.weaviate/example.py
+2022-10-12 15:38:18,618 [WARNING] _create_builder_config: Using custom data configuration default
+2022-10-12 15:38:18,634 [WARNING] download_and_prepare: Found cached dataset ag_news (/home/sai.s.kamat/.cache/huggingface/datasets/ag_news/default/0.0.0/bc2bcb40336ace1a0374767fc29bb0296cdaf8a6da7298436239c54d79180548)
+Traceback (most recent call last):
+  File "/home/sai.s.kamat/semi-tech-assignment/txtai.weaviate/example.py", line 9, in <module>
+    app = Application("app.yml")
+  File "/home/sai.s.kamat/venv_2/lib/python3.9/site-packages/txtai/app/base.py", line 67, in __init__
+    self.pipes()
+  File "/home/sai.s.kamat/venv_2/lib/python3.9/site-packages/txtai/app/base.py", line 111, in pipes
+    self.pipelines[pipeline] = PipelineFactory.create(config, pipeline)
+NameError: name 'config' is not defined
+(venv_2) sai.s.kamat@weaviate-gcp:~$ /home/sai.s.kamat/venv_2/bin/python /home/sai.s.kamat/semi-tech-assignment/txtai.weaviate/example.py
+2022-10-12 15:39:48,535 [WARNING] _create_builder_config: Using custom data configuration default
+2022-10-12 15:39:48,551 [WARNING] download_and_prepare: Found cached dataset ag_news (/home/sai.s.kamat/.cache/huggingface/datasets/ag_news/default/0.0.0/bc2bcb40336ace1a0374767fc29bb0296cdaf8a6da7298436239c54d79180548)
+Downloading: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 4.34k/4.34k [00:00<00:00, 3.30MB/s]
+Downloading: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 982M/982M [00:11<00:00, 87.9MB/s]
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 236/236 [00:00<00:00, 228kB/s]
+Downloading: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 798k/798k [00:00<00:00, 1.81MB/s]
+Downloading: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 456k/456k [00:00<00:00, 1.05MB/s]
+Downloading: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 1.36M/1.36M [00:00<00:00, 2.55MB/s]
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 120/120 [00:00<00:00, 106kB/s]
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 211/211 [00:00<00:00, 214kB/s]
+No model was supplied, defaulted to dbmdz/bert-large-cased-finetuned-conll03-english and revision f2482bf (https://huggingface.co/dbmdz/bert-large-cased-finetuned-conll03-english).
+Using a pipeline without specifying a model name and revision in production is not recommended.
+Downloading: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 998/998 [00:00<00:00, 650kB/s]
+Downloading: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 1.33G/1.33G [00:14<00:00, 89.9MB/s]
+Downloading: 100%|███████████████████████████████████████████████████████████████████████████████████████████████| 60.0/60.0 [00:00<00:00, 65.5kB/s]
+Downloading: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 213k/213k [00:00<00:00, 813kB/s]
+Traceback (most recent call last):
+  File "/home/sai.s.kamat/semi-tech-assignment/txtai.weaviate/example.py", line 9, in <module>
+    app = Application("app.yml")
+  File "/home/sai.s.kamat/venv_2/lib/python3.9/site-packages/txtai/app/base.py", line 67, in __init__
+    self.pipes()
+  File "/home/sai.s.kamat/venv_2/lib/python3.9/site-packages/txtai/app/base.py", line 111, in pipes
+    self.pipelines[pipeline] = PipelineFactory.create(config, pipeline)
+  File "/home/sai.s.kamat/venv_2/lib/python3.9/site-packages/txtai/pipeline/factory.py", line 55, in create
+    return pipeline if isinstance(pipeline, types.FunctionType) else pipeline(**config)
+TypeError: __init__() missing 1 required positional argument: 'path'
